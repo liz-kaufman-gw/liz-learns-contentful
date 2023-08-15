@@ -125,3 +125,24 @@ Args:
 - --environment-id, -e -> ID of the Environment to use
 - --content-type-id, -c -> Optional - ID of the Content Type to use. If omitted will generate a migration for the complete content model
 - --filename, -f -> Optional - Name of the generated file. If omitted will generate one with the format SPACE_ID-ENV_ID[-CT_ID]-TIMESTAMP
+
+## Environments
+
+When a space is created, it comes with a default master environment (like the main branch in git). You can then spin up sandbox environments from this.
+
+- Master environment -> production
+- Sandbox environments -> non-production development and testing
+
+Every time you spin up a sandbox environment, it creates a copy of the current version of the content model and content from the environment it's cloned from. Any further changes are contained to just that sandbox environment. Sandbox environments don't maintain version history (master environment does!).
+
+Content creators can work uninterrupted in the master environment while developers clone off sandbox environments to build and test new features.
+
+Some developers use long-lived environments that mirror their application environments, such as development, QA, staging, and production. Others spin up short-lived environments for every sprint.
+
+To access the different environments with the CLI, you need to allow access via the API key:
+
+![api key access](images/api-access-to-envs.png)
+
+## Example of workflow using environments and migration scripts to make a change
+
+![steps to make changes across environments](images/steps-to-make-change-across-envs.png)
